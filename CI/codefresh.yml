@@ -74,7 +74,7 @@ steps:
     composition_variables:
       - KEYS_IMAGE=${{BuildGitKeys}}
       - REPOSITORY_IMAGE=${{BuildingGitRepository}}
-      - MANAGEMENT_IMAGE=${{BuildingManagement}}
+      - MANAGEMENT_IMAGE=soluto/tweek-management:${{CF_BRANCH}}
       - API_IMAGE=${{BuildingApiImage}}
       - AUTHORING_IMAGE=${{BuildingAuthoring}}
       - EDITOR_IMAGE=${{BuildingEditor}}
