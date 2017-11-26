@@ -19,24 +19,6 @@ steps:
     image_name: soluto/tweek-bare-repo
     working_directory: ./services/git-service/BareRepository/
 
-  BuildingApiImage:
-    title: Building Tweek Api Docker Image
-    type: build
-    image_name: soluto/tweek-api
-    dockerfile: TweekApiDockerfile
-  
-  BuildingAuthoring:
-    title: Building Authoring Api Image
-    type: build
-    image_name: soluto/tweek-authoring
-    working_directory: ./services/authoring
-
-  BuildingEditor:
-    title: Building Editor Docker Image
-    type: build
-    image_name: soluto/tweek-editor
-    working_directory: ./services/editor/
-
   BuildingUITests:
     title: Building E2E UI Tests Docker Image
     type: build
@@ -74,11 +56,11 @@ steps:
     composition_variables:
       - KEYS_IMAGE=${{BuildGitKeys}}
       - REPOSITORY_IMAGE=${{BuildingGitRepository}}
-      - MANAGEMENT_IMAGE=soluto/tweek-management:${{CF_BRANCH}}
-      - API_IMAGE=${{BuildingApiImage}}
-      - AUTHORING_IMAGE=${{BuildingAuthoring}}
-      - EDITOR_IMAGE=${{BuildingEditor}}
       - ZAP_IMAGE=${{BuildingZapImage}}
+      - MANAGEMENT_IMAGE=soluto/tweek-management:${{CF_SHORT_REVISION}}
+      - API_IMAGE=soluto/tweek-api:${{CF_SHORT_REVISION}}
+      - AUTHORING_IMAGE=soluto/tweek-authoring:${{CF_SHORT_REVISION}}
+      - EDITOR_IMAGE=soluto/tweek-editor:${{CF_SHORT_REVISION}}
       - CF_VOLUME_PATH=${{CF_VOLUME_PATH}}
     composition_candidates:
       smoke-tests:
@@ -129,28 +111,28 @@ steps:
           - ${{CF_VOLUME}}:/repo
         working_dir: /repo/tweek/CI
         command: wget --tries 20 --timeout=15 --read-timeout=20 --waitretry=30 --retry-connrefused -O api-swagger.json http://api/api/swagger.json
-    on_success:
-      metadata:
-        set:
-          - '${{BuildingApiImage.imageId}}':
-            - CF_QUALITY: true
-          - '${{BuildingManagement.imageId}}':
-            - CF_QUALITY: true
-          - '${{BuildingEditor.imageId}}':
-            - CF_QUALITY: true
-          - '${{BuildingAuthoring.imageId}}':
-            - CF_QUALITY: true
-    on_fail:
-      metadata:
-        set:
-          - '${{BuildingApiImage.imageId}}':
-            - CF_QUALITY: false
-          - '${{BuildingManagement.imageId}}':
-            - CF_QUALITY: false
-          - '${{BuildingEditor.imageId}}':
-            - CF_QUALITY: false
-          - '${{BuildingAuthoring.imageId}}':
-            - CF_QUALITY: false
+    # on_success:
+    #   metadata:
+    #     set:
+    #       - '${{BuildingApiImage.imageId}}':
+    #         - CF_QUALITY: true
+    #       - '${{BuildingManagement.imageId}}':
+    #         - CF_QUALITY: true
+    #       - '${{BuildingEditor.imageId}}':
+    #         - CF_QUALITY: true
+    #       - '${{BuildingAuthoring.imageId}}':
+    #         - CF_QUALITY: true
+    # on_fail:
+    #   metadata:
+    #     set:
+    #       - '${{BuildingApiImage.imageId}}':
+    #         - CF_QUALITY: false
+    #       - '${{BuildingManagement.imageId}}':
+    #         - CF_QUALITY: false
+    #       - '${{BuildingEditor.imageId}}':
+    #         - CF_QUALITY: false
+    #       - '${{BuildingAuthoring.imageId}}':
+    #         - CF_QUALITY: false
 
   BuildGlueCli:
     title: Building Glue CLI
@@ -205,7 +187,7 @@ steps:
       branch:
         only:
           - master
-    candidate: ${{BuildingApiImage}}
+    candidate: soluto/tweek-api:${{CF_SHORT_REVISION}}
     tags:
       - latest
       - ${{TWEEK_DOCKER_TAG_API}}
@@ -217,7 +199,7 @@ steps:
       branch:
         only:
           - master
-    candidate: ${{BuildingManagement}}
+    candidate: soluto/tweek-management:${{CF_SHORT_REVISION}}
     tags:
       - latest
       - ${{TWEEK_DOCKER_TAG_MANAGEMENT}}
@@ -229,7 +211,7 @@ steps:
       branch:
         only:
           - master
-    candidate: ${{BuildingAuthoring}}
+    candidate: soluto/tweek-authoring:${{CF_SHORT_REVISION}}
     tags:
       - latest
       - ${{TWEEK_DOCKER_TAG_AUTHORING}}
@@ -241,7 +223,7 @@ steps:
       branch:
         only:
           - master
-    candidate: ${{BuildingEditor}}
+    candidate: soluto/tweek-editor:${{CF_SHORT_REVISION}}
     tags:
       - latest
       - ${{TWEEK_DOCKER_TAG_EDITOR}}

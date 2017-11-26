@@ -1,0 +1,9 @@
+version: '1.0'
+steps:
+  BuildingDockerImage:
+    title: Building Docker Image
+    type: build
+    image_name: soluto/tweek-editor
+    working_directory: ./services/editor/
+    dockerfile: Dockerfile
+    tag: '${{CF_SHORT_REVISION}}'
