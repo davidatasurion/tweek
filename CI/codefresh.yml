@@ -57,10 +57,10 @@ steps:
       - KEYS_IMAGE=${{BuildGitKeys}}
       - REPOSITORY_IMAGE=${{BuildingGitRepository}}
       - ZAP_IMAGE=${{BuildingZapImage}}
-      - MANAGEMENT_IMAGE=soluto/tweek-management:${{CF_SHORT_REVISION}}
-      - API_IMAGE=soluto/tweek-api:${{CF_SHORT_REVISION}}
-      - AUTHORING_IMAGE=soluto/tweek-authoring:${{CF_SHORT_REVISION}}
-      - EDITOR_IMAGE=soluto/tweek-editor:${{CF_SHORT_REVISION}}
+      - MANAGEMENT_IMAGE=r.cfcr.io/soluto/soluto/tweek-management:${{CF_SHORT_REVISION}}
+      - API_IMAGE=r.cfcr.io/soluto/soluto/tweek-api:${{CF_SHORT_REVISION}}
+      - AUTHORING_IMAGE=r.cfcr.io/soluto/soluto/tweek-authoring:${{CF_SHORT_REVISION}}
+      - EDITOR_IMAGE=r.cfcr.io/soluto/soluto/tweek-editor:${{CF_SHORT_REVISION}}
       - CF_VOLUME_PATH=${{CF_VOLUME_PATH}}
     composition_candidates:
       smoke-tests:
@@ -187,7 +187,7 @@ steps:
       branch:
         only:
           - master
-    candidate: soluto/tweek-api:${{CF_SHORT_REVISION}}
+    candidate: r.cfcr.io/soluto/soluto/tweek-api:${{CF_SHORT_REVISION}}
     tags:
       - latest
       - ${{TWEEK_DOCKER_TAG_API}}
@@ -199,7 +199,7 @@ steps:
       branch:
         only:
           - master
-    candidate: soluto/tweek-management:${{CF_SHORT_REVISION}}
+    candidate: r.cfcr.io/soluto/soluto/tweek-management:${{CF_SHORT_REVISION}}
     tags:
       - latest
       - ${{TWEEK_DOCKER_TAG_MANAGEMENT}}
@@ -211,7 +211,7 @@ steps:
       branch:
         only:
           - master
-    candidate: soluto/tweek-authoring:${{CF_SHORT_REVISION}}
+    candidate: r.cfcr.io/soluto/soluto/tweek-authoring:${{CF_SHORT_REVISION}}
     tags:
       - latest
       - ${{TWEEK_DOCKER_TAG_AUTHORING}}
@@ -223,7 +223,7 @@ steps:
       branch:
         only:
           - master
-    candidate: soluto/tweek-editor:${{CF_SHORT_REVISION}}
+    candidate: r.cfcr.io/soluto/soluto/tweek-editor:${{CF_SHORT_REVISION}}
     tags:
       - latest
       - ${{TWEEK_DOCKER_TAG_EDITOR}}
