@@ -9,6 +9,9 @@ do
   echo Performing try [ $i/$MAX_RETRIES ] to get all ready images that matches git sha: $GIT_SHA
 
   cf-cli images ls --list -s $GIT_SHA > images.txt
+  echo "Image list:"
+  cat images.txt
+  echo ""
 
   if [ $(grep -c "soluto/tweek-api " images.txt) -gt 0 ] && [ $(grep -c "soluto/tweek-management " images.txt) -gt 0 ] && [ $(grep -c "soluto/tweek-authoring " images.txt) -gt 0 ] && [ $(grep -c "soluto/tweek-editor " images.txt) -gt 0 ]
   then
