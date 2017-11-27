@@ -47,7 +47,7 @@ steps:
     image: codefresh/cf-cli
     working_directory: ./CI
     commands:
-      - 'sh wait-for-pipelines.sh ${{CF_REVISION}} 10'
+      - 'sh wait-for-pipelines.sh ${{CF_REVISION}}'
   
   Tests:
     title: Tests - e2e & smoke
