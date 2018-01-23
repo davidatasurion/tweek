@@ -128,6 +128,12 @@
   version = "v0.8.0"
 
 [[projects]]
+  name = "github.com/rs/cors"
+  packages = ["."]
+  revision = "7af7a1e09ba336d2ea14b1ce73bf693c6837dbf6"
+  version = "v1.2"
+
+[[projects]]
   name = "github.com/sirupsen/logrus"
   packages = ["."]
   revision = "d682213848ed68c0a260ca37d6dd5ace8423f5ba"
@@ -185,7 +191,7 @@
   branch = "master"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
-  revision = "39efaea5da11abd5e2b90a435b1f338cdb94619c"
+  revision = "d94f6bc902c2970500950e88ab1a54a0c26bec48"
 
 [[projects]]
   branch = "master"
@@ -214,6 +220,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "d175bdc5c0be37c8ad7977e36e0151ee34f778973881220036e05b2eafd75558"
+  inputs-digest = "f7505ae36e9d31e02e136985a714b4e9e1cbf17d28fb5ec60b7057fd0707a1f7"
   solver-name = "gps-cdcl"
   solver-version = 1
